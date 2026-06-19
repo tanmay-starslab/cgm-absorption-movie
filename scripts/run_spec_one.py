@@ -1,9 +1,9 @@
 """Build ONE manifest_spec row (idx=$1) if its HDF5 is missing/corrupt; else skip fast
 (checks existence BEFORE loading the cutout, so already-built rows exit in <5 s)."""
-import sys
+import os, sys
 from pathlib import Path
 import pandas as pd, h5py
-sys.path.insert(0, str(Path(__file__).parent)); sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
+sys.path.insert(0, str(Path(__file__).parent)); sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
 import movie_config as C
 r = pd.read_csv(C.REPO_ROOT / "manifest_spec.csv").iloc[int(sys.argv[1])]
 def ok(p):

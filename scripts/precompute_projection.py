@@ -10,14 +10,14 @@ Four off-axis scalar maps (display top-down row order) + photometric g/r/i stell
 Usage: python precompute_projection.py <segment> <inc_deg> <alpha_deg> <out_npz>
 """
 from __future__ import annotations
-import sys, time
+import os, sys, time
 from pathlib import Path
 import numpy as np
 import h5py
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
-sys.path.insert(0, "/home/tsingh65/finesst-codes/code/figure2")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
+sys.path.insert(0, os.environ.get("CGM_STYLE_DIR", ""))  # common.py
 import movie_config as C
 import movie_geom as G
 

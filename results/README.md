@@ -1,18 +1,15 @@
-# CGM Absorption Movie — results
+# Example result
 
-Final videos (TNG50 sub 488530, 1920x1080, H.264 yuv420p, +faststart for PowerPoint).
-Same 1650 frames, five playback speeds — pick whichever reads best in the talk:
+`cgm_movie_50fps.mp4` — an example render of the pipeline (1920×1080, H.264 / yuv420p,
+`+faststart`). Example target: **TNG50-1 subhalo 488530** at *z* = 0; 1650 frames at 50 fps
+(≈33 s).
 
-| file | fps | duration |
-|------|-----|----------|
-| cgm_absorption_488530_20fps.mp4 | 20 | 82.5 s |
-| cgm_absorption_488530_24fps.mp4 | 24 | 68.8 s |
-| cgm_absorption_488530_30fps.mp4 | 30 | 55.0 s |
-| cgm_absorption_488530_40fps.mp4 | 40 | 41.3 s |
-| cgm_absorption_488530_50fps.mp4 | 50 | 33.0 s |
+**Left** — 4-quadrant off-axis projection (gas surface density, temperature, *N*<sub>HI</sub>,
+rest-frame *v*<sub>LOS</sub>) + photometric *g/r/i* stellar inset + bold sightline marker +
+25 kpc scalebar. **Right** — 10-ion absorption stack (H I → S XIV). The three continuous
+segments sweep impact parameter ρ (150 → 2 kpc), inclination (edge-on ↔ face-on), and
+azimuth α (0 → 360°).
 
-LEFT = 4-quadrant off-axis projection (gas surface density, temperature, N_HI, rest-frame
-v_LOS) + photometric g/r/i stellar inset + bold sightline + 25 kpc scalebar; RIGHT = 10-ion
-absorption stack (H I -> S XIV). Three continuous segments sweep impact parameter rho
-(150->2 kpc), inclination (edge-on<->face-on), and azimuth alpha (0->360 deg).
-Heavy data under /data/sborthak/m61/edinburgh_movie/.
+The encode step (`slurm/04_encode.sbatch`) can emit additional playback speeds
+(50/40/30/24/20 fps) from the same frames; only the 50 fps example is committed here. Heavy
+per-run outputs live outside the repository under `$CGM_DATA_ROOT`.

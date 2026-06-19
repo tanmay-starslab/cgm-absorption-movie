@@ -2,12 +2,12 @@
 spectra, render the stack, and report: token resolution, S XIV field + signal, v_sys, usetex.
 """
 from __future__ import annotations
-import sys, time, json
+import os, sys, time, json
 from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
 import movie_config as C
 import movie_geom as G
 import movie_spectra as S

@@ -5,7 +5,7 @@ RIGHT 10-ion spectra stack, with a top headline strip.
 Usage: python assemble_frame.py <proj_npz> <spectra_h5> <rho_kpc> <inc_deg> <alpha_deg> <out_png>
 """
 from __future__ import annotations
-import sys
+import os, sys
 from pathlib import Path
 import numpy as np
 import matplotlib
@@ -23,8 +23,8 @@ HI_CMAP_OBJ = LinearSegmentedColormap.from_list("hi_contrast",
      "#f0c01e", "#f0721e", "#d61f2f", "#ffe6f0"])
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
-sys.path.insert(0, "/home/tsingh65/finesst-codes/code/figure2")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
+sys.path.insert(0, os.environ.get("CGM_STYLE_DIR", ""))  # common.py
 import movie_config as C
 import movie_geom as G
 import common

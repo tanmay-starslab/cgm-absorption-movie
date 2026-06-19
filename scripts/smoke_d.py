@@ -5,7 +5,7 @@ sightline (no ring/line), top-left scalebar, two coloured info boxes, turbo spec
 +/-1000 window + line-name labels, N_HI cbar to 22, bigger colorbars, no headline, high dpi.
 """
 from __future__ import annotations
-import sys, time
+import os, sys, time
 from pathlib import Path
 import numpy as np
 import matplotlib
@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
-sys.path.insert(0, "/home/tsingh65/finesst-codes/code/figure2")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
+sys.path.insert(0, os.environ.get("CGM_STYLE_DIR", ""))  # common.py
 import movie_config as C
 import movie_geom as G
 import precompute_projection as P

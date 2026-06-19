@@ -3,7 +3,7 @@ Loads the cutout ONCE, computes the needed projections + spectra, assembles 9 fr
 builds a 3x3 contact sheet. Seg1 reuses one projection (rho varies); seg2/seg3 vary orientation.
 """
 from __future__ import annotations
-import sys, time
+import os, sys, time
 from pathlib import Path
 import numpy as np
 import matplotlib
@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
-sys.path.insert(0, "/home/tsingh65/finesst-codes/code/figure2")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
+sys.path.insert(0, os.environ.get("CGM_STYLE_DIR", ""))  # common.py
 import movie_config as C
 import movie_geom as G
 import movie_spectra as S

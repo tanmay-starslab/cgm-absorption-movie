@@ -1,9 +1,9 @@
 """SMOKE E (1 frame): recompute fiducial projection with the colourful stellar mock + apply all
 render-side tweaks (N_HI vmin10/vmax23, bigger colorbars, fixed info boxes). Reuse smoke-C spectra."""
-import sys
+import os, sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent)); sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
-sys.path.insert(0, "/home/tsingh65/finesst-codes/code/figure2")
+sys.path.insert(0, str(Path(__file__).parent)); sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
+sys.path.insert(0, os.environ.get("CGM_STYLE_DIR", ""))  # common.py
 import movie_config as C
 OUT = C.RESULTS / "smoke"; (OUT/"e_proj").mkdir(parents=True, exist_ok=True)
 npz = str(OUT/"e_proj"/"fiducial_inc23_a0.npz")

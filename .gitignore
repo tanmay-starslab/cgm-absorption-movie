@@ -2,9 +2,18 @@ logs/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-results/smoke/
-results/cgm_absorption_488530_20fps.mp4
-results/cgm_absorption_488530_24fps.mp4
-results/cgm_absorption_488530_30fps.mp4
-results/cgm_absorption_488530_40fps.mp4
 frames.txt
+
+# personal/local-only material (paths, real config, snapshots)
+personal/
+
+# generated manifests (rebuild with: python scripts/build_manifest.py)
+manifest_proj.csv
+manifest_spec.csv
+manifest_frames.csv
+
+# heavy / per-run outputs (kept out of git; regenerable)
+data/
+results/smoke/
+results/*.mp4
+!results/cgm_movie_50fps.mp4

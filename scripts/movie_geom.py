@@ -11,10 +11,10 @@ QSO sightline at sky (rho, phi):
 Run directly for the self-test:  python movie_geom.py
 """
 from __future__ import annotations
-import sys, math
+import os, sys, math
 import numpy as np
 
-sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
+sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).parent))
 import orient_m61
 import movie_config as C
@@ -70,9 +70,9 @@ def sightline(vb, rho_kpc, phi_deg=C.QSO_PHI_DEG, half_kpc=C.RVIR_KPC):
 
 # ── Self-test ──────────────────────────────────────────────────────────────────
 def _selftest():
-    sys.path.insert(0, "/scratch/tsingh65/m61-tng/scripts")
+    sys.path.insert(0, os.environ.get("CGM_ORIENT_DIR", ""))  # orient_m61, pm_general
     import pm_general as pmg
-    print("=== movie_geom self-test (sub 488530) ===")
+    print(f"=== movie_geom self-test (sub {C.SID}) ===")
     maxe_los = maxe_north = 0.0
     for alpha in [0, 17, 90, 213, 359]:
         vb = view_basis(C.OBS_INC_DEG, alpha, mode="noflip")

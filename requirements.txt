@@ -1,0 +1,10 @@
+# Core pipeline dependencies (install into the same env as your CGM_PYTHON).
+# Trident pulls in yt; pin to versions available on your system as needed.
+trident
+yt
+numpy
+scipy
+pandas
+h5py
+matplotlib
+# Also required outside pip: a LaTeX install (latex + dvipng) and ffmpeg (libx264).
