@@ -1,5 +1,5 @@
 """SMOKE TEST A — spectra. Build the fiducial sightline ray, generate 10 ion velocity
-spectra, render the stack, and report: token resolution, S XIV field + signal, v_sys, usetex.
+spectra, render the stack, and report: token resolution, hottest-ion field + signal, v_sys, usetex.
 """
 from __future__ import annotations
 import os, sys, time, json
@@ -37,23 +37,24 @@ def main():
     ds = yt.load(C.CUTOUT)
     print(f"  adding ion fields {C.SPECTRA_ION_LIST} ...")
     trident.add_ion_fields(ds, ions=C.SPECTRA_ION_LIST, ftype="gas")
-    # confirm S XIV field exists + its max number density along a quick check
-    sxiv_field = ("gas", "S_p13_number_density")
-    has_sxiv = sxiv_field in ds.derived_field_list
-    print(f"  S XIV field present: {has_sxiv}")
+    # confirm the hottest tracer's ion field exists (last ion in C.IONS)
+    hot = C.IONS[-1]
+    hot_field = ("gas", hot["field"])
+    has_hot = hot_field in ds.derived_field_list
+    print(f"  {hot['ion']} field ({hot['field']}) present: {has_hot}")
 
     ray_h5 = OUT / "smokeA_ray.h5"
     print(f"  building ray (t={time.time()-t0:.0f}s)...")
     S.build_ray(ds, sl["start_ckpch"], sl["end_ckpch"], ray_h5)
     ray_ds = yt.load(str(ray_h5))
 
-    # quick S XIV column along the ray
+    # quick column of the hottest tracer along the ray
     try:
-        nS = np.asarray(ray_ds.r[sxiv_field]); dl = np.asarray(ray_ds.r[("gas", "dl")].to("cm"))
+        nS = np.asarray(ray_ds.r[hot_field]); dl = np.asarray(ray_ds.r[("gas", "dl")].to("cm"))
         NS = float(np.sum(nS * dl))
-        print(f"  S XIV column along ray ~ {NS:.3e} cm^-2")
+        print(f"  {hot['ion']} column along ray ~ {NS:.3e} cm^-2")
     except Exception as e:
-        NS = float("nan"); print(f"  (S XIV column check skipped: {e})")
+        NS = float("nan"); print(f"  ({hot['ion']} column check skipped: {e})")
 
     # 4) spectra
     spec_h5 = OUT / "smokeA_spectra.h5"

@@ -6,7 +6,8 @@
 
 **Left** — 4-quadrant off-axis projection (gas surface density, temperature, *N*<sub>HI</sub>,
 rest-frame *v*<sub>LOS</sub>) + photometric *g/r/i* stellar inset + bold sightline marker +
-25 kpc scalebar. **Right** — 10-ion absorption stack (H I → S XIV). The three continuous
+25 kpc scalebar. **Right** — 10-ion absorption stack (H I → O VII, the bottom panel being the
+soft-X-ray O VII λ21.60 resonance line, the canonical ~10⁶ K hot-CGM tracer). The three continuous
 segments sweep impact parameter ρ (150 → 2 kpc), inclination (edge-on ↔ face-on), and
 azimuth α (0 → 360°).
 

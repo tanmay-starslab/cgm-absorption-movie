@@ -37,8 +37,9 @@ ORIENT_DIR = os.environ.get("CGM_ORIENT_DIR", "")
 STYLE_DIR  = os.environ.get("CGM_STYLE_DIR", "")
 # Python interpreter with yt + trident installed (used by the Slurm scripts):
 PYTHON     = os.environ.get("CGM_PYTHON", "python")
-# Trident line list (only needed if you validate line tokens against the raw file):
-LINE_LIST  = os.environ.get("CGM_LINE_LIST", "")
+# Trident line list. Defaults to the bundled list (Trident's defaults + soft-X-ray O VII/O VIII,
+# which are NOT in Trident's stock list). Spectra are generated against this file.
+LINE_LIST  = os.environ.get("CGM_LINE_LIST", str(REPO_ROOT / "linelists" / "lines_cgm.txt"))
 
 # ── Galaxy / snapshot — EDIT THIS BLOCK FOR YOUR TARGET ────────────────────────
 # Example target: TNG50-1 subhalo 488530, snapshot 99 (z=0).
@@ -62,10 +63,12 @@ TNG_H        = SIM_H                                      # backward-compatible 
 
 # ── Output locations (heavy data lives outside the repo) ───────────────────────
 DATA_ROOT  = Path(os.environ.get("CGM_DATA_ROOT", REPO_ROOT / "data"))
-PROJ_DIR   = DATA_ROOT / "projections"
-SPEC_DIR   = DATA_ROOT / "spectra"
-RAY_DIR    = DATA_ROOT / "rays"
-FRAME_DIR  = DATA_ROOT / "frames"
+# Each sub-directory can be overridden independently (lets a re-run reuse expensive
+# projections/rays while writing fresh spectra/frames to a separate location).
+PROJ_DIR   = Path(os.environ.get("CGM_PROJ_DIR",  DATA_ROOT / "projections"))
+SPEC_DIR   = Path(os.environ.get("CGM_SPEC_DIR",  DATA_ROOT / "spectra"))
+RAY_DIR    = Path(os.environ.get("CGM_RAY_DIR",   DATA_ROOT / "rays"))
+FRAME_DIR  = Path(os.environ.get("CGM_FRAME_DIR", DATA_ROOT / "frames"))
 RESULTS    = REPO_ROOT / "results"
 
 
@@ -100,8 +103,11 @@ HI_TICKS    = [13, 15, 17, 19, 21, 23]
 
 # ── Ion set (RIGHT panel), ordered low->high ionization potential ──────────────
 # trident's line token is "<Elem> <Ion> <ROUND(wavelength)>" (rounded, not truncated);
-# e.g. 1215.67 -> 1216, 1334.53 -> 1335, 417.66 -> 418. Tokens are validated (single clean
+# e.g. 1215.67 -> 1216, 1334.53 -> 1335, 21.6019 -> 22. Tokens are validated (single clean
 # line per token, fresh LineDatabase) in smoke test A.
+# The hottest tracer is the soft-X-ray O VII 21.60 A resonance line (~1e6 K, the canonical
+# CGM/"missing-baryon" line) — added to the bundled line list since it is not in Trident's
+# stock list. Its ion fraction comes from Trident's ionization tables.
 IONS = [
     dict(key="H_I_1216",    label=r"H\,\textsc{i}\,$\lambda$1216",      rest_A=1215.6701, ion="H I",
          field="H_p0_number_density",  tokens=["H I 1216"]),
@@ -121,8 +127,8 @@ IONS = [
          field="O_p5_number_density",  tokens=["O VI 1032"]),
     dict(key="Ne_VIII_770", label=r"Ne\,\textsc{viii}\,$\lambda$770",   rest_A=770.4090,  ion="Ne VIII",
          field="Ne_p7_number_density", tokens=["Ne VIII 770"]),
-    dict(key="S_XIV_418",   label=r"S\,\textsc{xiv}\,$\lambda$418",     rest_A=417.6600,  ion="S XIV",
-         field="S_p13_number_density", tokens=["S XIV 418"]),
+    dict(key="O_VII_22",    label=r"O\,\textsc{vii}\,$\lambda$21.6",    rest_A=21.6019,   ion="O VII",
+         field="O_p6_number_density",  tokens=["O VII 22"]),
 ]
 SPECTRA_ION_LIST = [d["ion"] for d in IONS]   # for trident.add_ion_fields
 VEL_WINDOW_KMS   = 1000.0                      # display window +/- (km/s)

@@ -73,7 +73,8 @@ def make_line_velocity_spectrum(ray_ds, token, rest_A, v_sys_kms,
     dlam_A = rest_A * dv_kms / C_KMS
     sg = trident.SpectrumGenerator(lambda_min=rest_A - half_A,
                                    lambda_max=rest_A + half_A,
-                                   dlambda=dlam_A)
+                                   dlambda=dlam_A,
+                                   line_database=C.LINE_LIST)
     kw = dict(lines=[token], use_peculiar_velocity=True)
     if "use_doppler_redshift_only" in inspect.signature(sg.make_spectrum).parameters:
         kw["use_doppler_redshift_only"] = True

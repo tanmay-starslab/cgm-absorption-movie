@@ -13,7 +13,7 @@ Each frame is a single, continuous figure:
   line-of-sight velocity *v*<sub>LOS</sub>, and neutral-hydrogen column *N*<sub>HI</sub>,
   with a photometric *g/r/i* stellar-centre inset, a bold sightline marker, and a scalebar.
 - **Right** — a vertical stack of **10 ion absorption spectra** (raw flux vs. velocity),
-  ordered low → high ionization potential (H I → S XIV), each a single clean transition.
+  ordered low → high ionization potential (H I → O VII), each a single clean transition.
 
 The animation has three continuous segments that sweep the three observational degrees of
 freedom of a QSO–galaxy absorption experiment:
